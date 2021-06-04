@@ -5,6 +5,7 @@
 /** @typedef {import('@adonisjs/framework/src/View')} View */
 
 const Bip = use('App/Models/Bip')
+const CustomException = use('App/Exceptions/CustomException')
 
 /**
  * Resourceful controller for interacting with bips
@@ -43,6 +44,10 @@ class BipController {
 
     const bip = await Bip.create({ ...data, user_id: id })
 
+    if (!bip) {
+      throw new CustomException('Erro ao cadastrar Bip', 404);
+    }
+
     return bip
   }
 
@@ -57,7 +62,11 @@ class BipController {
    */
   async show ({ params, request, response, view }) {
 
-    const bip = await Bip.findOrFail(params.id)
+    const bip = await Bip.find(params.id)
+
+    if (!bip) {
+      throw new CustomException('Bip não encontrado', 404);
+    }
 
     return bip
   }
