@@ -4,6 +4,9 @@
 /** @typedef {import('@adonisjs/framework/src/Response')} Response */
 /** @typedef {import('@adonisjs/framework/src/View')} View */
 
+const BlueScreen = use('App/Models/BlueScreen')
+const CustomException = use('App/Exceptions/CustomException')
+
 /**
  * Resourceful controller for interacting with bluescreens
  */
@@ -18,6 +21,9 @@ class BlueScreenController {
    * @param {View} ctx.view
    */
   async index ({ request, response, view }) {
+    const bluescreen = BlueScreen.all()
+
+    return bluescreen
   }
 
   /**
