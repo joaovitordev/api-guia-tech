@@ -27,3 +27,7 @@ Route.post('/sessions', 'SessionController.create')
 Route.resource('bips', 'BipController')
   .apiOnly()
   .middleware('auth')
+
+Route.resource('blueScreen', 'BlueScreenController')
+  .apiOnly()
+  .middleware('auth')
