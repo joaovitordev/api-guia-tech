@@ -1,5 +1,7 @@
 'use strict'
 
+const BipController = require('./BipController')
+
 /** @typedef {import('@adonisjs/framework/src/Request')} Request */
 /** @typedef {import('@adonisjs/framework/src/Response')} Response */
 /** @typedef {import('@adonisjs/framework/src/View')} View */
@@ -27,18 +29,6 @@ class BlueScreenController {
   }
 
   /**
-   * Render a form to be used for creating a new bluescreen.
-   * GET bluescreens/create
-   *
-   * @param {object} ctx
-   * @param {Request} ctx.request
-   * @param {Response} ctx.response
-   * @param {View} ctx.view
-   */
-  async create ({ request, response, view }) {
-  }
-
-  /**
    * Create/save a new bluescreen.
    * POST bluescreens
    *
@@ -46,7 +36,21 @@ class BlueScreenController {
    * @param {Request} ctx.request
    * @param {Response} ctx.response
    */
-  async store ({ request, response }) {
+  async store ({ request, response, auth }) {
+    const { id } = auth.user
+
+    const data = request.only([
+      'error_title',
+      'solution'
+    ])
+
+    const blueScreen = await BipController.create({ ...data, user_id: id })
+
+    if(!blueScreen) {
+      throw new CustomException('Erro ao cadastrar tela azul', 404)
+    }
+
+    return blueScreen
   }
 
   /**
