@@ -73,18 +73,6 @@ class BlueScreenController {
   }
 
   /**
-   * Render a form to update an existing bluescreen.
-   * GET bluescreens/:id/edit
-   *
-   * @param {object} ctx
-   * @param {Request} ctx.request
-   * @param {Response} ctx.response
-   * @param {View} ctx.view
-   */
-  async edit ({ params, request, response, view }) {
-  }
-
-  /**
    * Update bluescreen details.
    * PUT or PATCH bluescreens/:id
    *
@@ -93,6 +81,18 @@ class BlueScreenController {
    * @param {Response} ctx.response
    */
   async update ({ params, request, response }) {
+    const blueScreen = await BlueScreen.findOrFail(params.id)
+
+    const data = request.only([
+      'error_title',
+      'solution'
+    ])
+
+    blueScreen.merge(data)
+
+    await blueScreen.save()
+
+    return blueScreen
   }
 
   /**
