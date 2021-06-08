@@ -104,6 +104,13 @@ class BlueScreenController {
    * @param {Response} ctx.response
    */
   async destroy ({ params, request, response }) {
+    const blueScreen = await BlueScreen.findOrFail(params.id)
+
+    if(blueScreen.user_id != AuthenticatorAssertionResponse.user.id) {
+      return response.status(401).send({ error: 'Não autorizado' })
+    }
+
+    await blueScreen.delete()
   }
 }
 
