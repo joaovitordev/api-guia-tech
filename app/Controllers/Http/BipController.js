@@ -49,6 +49,7 @@ class BipController {
     }
 
     return bip
+
   }
 
   /**
