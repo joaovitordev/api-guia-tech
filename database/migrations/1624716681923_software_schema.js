@@ -7,6 +7,17 @@ class SoftwareSchema extends Schema {
   up () {
     this.create('softwares', (table) => {
       table.increments()
+      table
+      .integer('user_id')
+      .unsigned()
+      .references('id')
+      .inTable('users')
+      .onUpdate('CASCADE')
+      .onDelete('CASCADE')
+      table.string('error_title').notNullable()
+      table.string('additional_information')
+      table.string('explanation')
+      table.string('solution').notNullable()
       table.timestamps()
     })
   }
