@@ -4,6 +4,9 @@
 /** @typedef {import('@adonisjs/framework/src/Response')} Response */
 /** @typedef {import('@adonisjs/framework/src/View')} View */
 
+const Software = use('App/Models/Software')
+const CustomException = use('App/Exceptions/CustomException')
+
 /**
  * Resourceful controller for interacting with softwares
  */
@@ -18,6 +21,9 @@ class SoftwareController {
    * @param {View} ctx.view
    */
   async index ({ request, response, view }) {
+    const software = Software.all();
+
+    return software;
   }
 
   /**
