@@ -1,11 +1,4 @@
-
-   
-
-
-
-adonis js
-
-
+api feita para o aplicativo guia-tech
 
 
 
