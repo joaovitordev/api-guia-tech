@@ -93,6 +93,13 @@ class SoftwareController {
    * @param {Response} ctx.response
    */
   async destroy ({ params, request, response }) {
+    const software = await Software.findOrFail(params.id)
+
+    if(software.user_id != AuthenticatorAssertionResponse.user.id) {
+      return response.status(401).send({ error: 'Não autorizado' })
+    }
+
+    await software.delete()
   }
 }
 
